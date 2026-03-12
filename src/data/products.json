@@ -1,0 +1,39 @@
+{
+  "company": {
+    "name": "Jinhua Shunxi",
+    "slogan": "Professional Pet Supplies Manufacturer from Jinhua, China",
+    "description": "Jinhua Shunxi is a professional pet supplies manufacturer specializing in high-quality dog toys, harnesses, cat litter boxes, and pet accessories. We provide OEM/ODM services for global customers with competitive prices and reliable quality.",
+    "email": "sales1pet@163.com",
+    "whatsapp": "+8615735169721"
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Dog TPR Chew Toy",
+      "description": "Durable TPR rubber toy, non-toxic and bite-resistant. Perfect for aggressive chewers, promotes dental health and endless fun.",
+      "image": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=400&h=300&fit=crop",
+      "price": "$8.99"
+    },
+    {
+      "id": 2,
+      "name": "Dog Harness Vest",
+      "description": "Adjustable no-pull dog harness with breathable mesh. Comfortable fit for small to large dogs, reflective strips for night safety.",
+      "image": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop",
+      "price": "$15.99"
+    },
+    {
+      "id": 3,
+      "name": "Cat Litter Box",
+      "description": "Large enclosed litter box with scoop and filter. Odor control design, easy-to-clean drawer system, suitable for cats of all sizes.",
+      "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&h=300&fit=crop",
+      "price": "$29.99"
+    },
+    {
+      "id": 4,
+      "name": "Dog Poop Bags",
+      "description": "Eco-friendly biodegradable dog waste bags, 300 counts per pack. Leak-proof design with easy-tear perforation, includes dispenser.",
+      "image": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop",
+      "price": "$12.99"
+    }
+  ]
+}
