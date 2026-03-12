@@ -288,6 +288,20 @@ export async function initApp(): Promise<void> {
       </div>
     </section>
 
+    <!-- Blog CTA -->
+    <section class="py-16 px-4 bg-gray-100">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Pet Care Tips & Insights</h2>
+        <p class="text-gray-600 mb-6">Check out our blog for helpful guides and industry news</p>
+        <a 
+          href="/blog.html" 
+          class="inline-block bg-gray-900 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+        >
+          Read Our Blog →
+        </a>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 py-6 px-4 text-center text-sm">
       <p>&copy; ${new Date().getFullYear()} ${company.name}. All rights reserved.</p>
