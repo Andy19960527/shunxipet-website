@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Vanilla TypeScript application with Vite (HTML + CSS + TS)",
   "scripts": {
-    "build": "bash ./scripts/build.sh",
+    "build": "pnpm install && npx vite build",
     "dev": "bash ./scripts/dev.sh",
     "preinstall": "npx only-allow pnpm",
     "lint": "eslint",
