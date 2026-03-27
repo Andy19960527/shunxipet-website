@@ -335,8 +335,31 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
               </div>
             ` : ''}
 
-            <!-- Size Chart Image -->
-            <img src="/sx20221-size.jpg" alt="Size Chart" class="w-full max-w-md rounded-xl mb-6" onerror="this.style.display='none'" />
+            <!-- Size Chart Table -->
+            ${productSizes.length > 0 ? `
+              <div class="mb-6 overflow-x-auto">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Size Chart</h3>
+                <table class="w-full text-sm border-collapse">
+                  <thead>
+                    <tr class="bg-gray-100">
+                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Size</th>
+                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Dimensions (L×W×H)</th>
+                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Net Weight</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${productSizes.map(s => `
+                      <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-300 px-4 py-2 font-medium">${s.size_name}</td>
+                        <td class="border border-gray-300 px-4 py-2">${s.dimensions}</td>
+                        <td class="border border-gray-300 px-4 py-2">${s.price_adjustment || '-'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+                <p class="text-xs text-gray-500 mt-2">Note: Manual measurements may have slight variations. Please refer to the actual product.</p>
+              </div>
+            ` : ''}
 
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row gap-4">
