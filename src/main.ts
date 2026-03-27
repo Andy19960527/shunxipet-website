@@ -12,6 +12,7 @@ interface Product {
   description: string;
   image: string;
   price: string;
+  sort_order?: number;
 }
 
 interface Company {
