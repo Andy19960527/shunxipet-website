@@ -401,19 +401,19 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
 // 辅助函数
 function renderProductCard(product: Product, whatsapp: string): string {
   return `
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
+    <a href="/?product=${product.id}" class="block bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group cursor-pointer">
       <div class="aspect-[4/3] overflow-hidden">
         <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Product+Image'" />
       </div>
       <div class="p-6">
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">${product.name}</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-gray-600">${product.name}</h3>
         <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-2">${product.description}</p>
         <div class="flex items-center justify-between">
           <span class="text-2xl font-bold text-gray-900">${product.price}</span>
-          <a href="https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}`)}" target="_blank" class="bg-gray-900 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Inquiry</a>
+          <span class="text-gray-500 text-sm group-hover:text-gray-900">View Details →</span>
         </div>
       </div>
-    </div>
+    </a>
   `;
 }
 
