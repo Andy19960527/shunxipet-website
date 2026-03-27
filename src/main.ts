@@ -107,7 +107,7 @@ function renderHomePage(app: HTMLElement, categories: Category[], products: Prod
     <!-- Header Banner -->
     <header class="relative min-h-[600px] md:min-h-[700px] flex flex-col overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img src="https://coze-coding-project.tos.coze.site/coze_storage_7615892821844951067/image/generate_image_b11c97b7-336a-4415-a58b-b54f477082e8.jpeg?sign=1806113319-1507142a01-0-b6a8513555e403fd44f4bccccdd97f0bf1cf2c3241dd075a3355f33aec026c50" alt="Dog and owner" class="w-full h-full object-cover object-top" />
+        <img src="/banner.jpg" alt="Dog and owner" class="w-full h-full object-cover object-top" />
         <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
       </div>
       <div class="relative z-10 max-w-6xl mx-auto px-4 flex flex-col items-center pt-4">
