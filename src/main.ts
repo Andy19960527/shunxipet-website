@@ -81,9 +81,6 @@ export async function initApp(): Promise<void> {
   const categoryList: Category[] = categories || [];
   const productList: Product[] = products || [];
 
-  console.log('Loaded categories:', categoryList.length, categoryList);
-  console.log('Loaded products:', productList.length, productList);
-
   // 检查URL参数
   const urlParams = new URLSearchParams(window.location.search);
   const categorySlug = urlParams.get('category');
