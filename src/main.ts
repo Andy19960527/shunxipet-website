@@ -344,16 +344,14 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                   <thead>
                     <tr class="bg-gray-100">
                       <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Size</th>
-                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Dimensions (L×W×H)</th>
-                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Net Weight</th>
+                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Dimensions</th>
                     </tr>
                   </thead>
                   <tbody>
                     ${productSizes.map(s => `
                       <tr class="hover:bg-gray-50">
                         <td class="border border-gray-300 px-4 py-2 font-medium">${s.size_name}</td>
-                        <td class="border border-gray-300 px-4 py-2">${s.dimensions.replace(/,?\s*Net Weight:\s*\d+g/g, '')}</td>
-                        <td class="border border-gray-300 px-4 py-2">${(s.dimensions.match(/Net Weight:\s*(\d+g)/) || [,'-'])[1]}</td>
+                        <td class="border border-gray-300 px-4 py-2">${s.dimensions}</td>
                       </tr>
                     `).join('')}
                   </tbody>
