@@ -352,8 +352,8 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                     ${productSizes.map(s => `
                       <tr class="hover:bg-gray-50">
                         <td class="border border-gray-300 px-4 py-2 font-medium">${s.size_name}</td>
-                        <td class="border border-gray-300 px-4 py-2">${s.dimensions}</td>
-                        <td class="border border-gray-300 px-4 py-2">${s.price_adjustment || '-'}</td>
+                        <td class="border border-gray-300 px-4 py-2">${s.dimensions.replace(/,?\s*Net Weight:\s*\d+g/g, '')}</td>
+                        <td class="border border-gray-300 px-4 py-2">${(s.dimensions.match(/Net Weight:\s*(\d+g)/) || [,'-'])[1]}</td>
                       </tr>
                     `).join('')}
                   </tbody>
