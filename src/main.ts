@@ -125,7 +125,7 @@ function renderHomePage(app: HTMLElement, categories: Category[], products: Prod
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-900">Our Products</h2>
         ${categories.length > 0 ? `
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             ${categories.map(category => {
               const productCount = products.filter(p => p.category_id === category.id).length;
               return `
@@ -153,7 +153,8 @@ function renderHomePage(app: HTMLElement, categories: Category[], products: Prod
           </div>
         ` : ''}
         ${uncategorizedProducts.length > 0 ? `
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <h3 class="text-2xl font-bold text-center mb-8 text-gray-900">More Products</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             ${uncategorizedProducts.map(product => renderProductCard(product, company.whatsapp)).join('')}
           </div>
         ` : ''}
