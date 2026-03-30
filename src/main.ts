@@ -277,7 +277,7 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
           <!-- Product Images -->
           <div>
             <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-4">
-              <img id="main-product-image" src="${productVariants.length > 0 ? productVariants[0].image : product.image}" alt="${product.name}" class="w-full h-full object-cover" />
+              <img id="main-product-image" src="${productVariants.length > 0 ? productVariants[0].image : product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${product.image}';" />
             </div>
             ${productVariants.length > 1 ? `
               <div class="grid grid-cols-4 gap-3">
@@ -301,17 +301,18 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
             </div>
 
             <!-- Color Selection -->
-            ${productVariants.length > 1 ? `
+            ${productVariants.length > 0 ? `
               <div class="mb-6">
                 <p class="text-sm font-medium text-gray-900 mb-3">Color: <span id="selected-color-name">${productVariants[0].color_name}</span></p>
                 <div class="flex flex-wrap gap-3">
                   ${productVariants.map((v, i) => `
                     <button 
                       onclick="selectColor('${v.color_name}', '${v.image}', this)"
-                      class="color-btn w-12 h-12 rounded-full border-2 ${i === 0 ? 'border-gray-900 ring-2 ring-gray-900 ring-offset-2' : 'border-gray-300'} transition-all hover:scale-110"
-                      style="background-color: ${v.color_code || '#ccc'}"
+                      class="color-btn w-12 h-12 rounded-full border-2 ${i === 0 ? 'border-gray-900 ring-2 ring-gray-900 ring-offset-2' : 'border-gray-300'} transition-all hover:scale-110 overflow-hidden"
                       title="${v.color_name}"
-                    ></button>
+                    >
+                      <img src="${v.image}" alt="${v.color_name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='${v.color_code || '#ccc'}';" />
+                    </button>
                   `).join('')}
                 </div>
               </div>
