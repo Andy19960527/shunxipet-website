@@ -4,6 +4,7 @@
   "description": "Shunxi Pet Products Website",
   "type": "module",
   "scripts": {
+    "dev": "vite --port 5000 --host",
     "build": "vite build",
     "preview": "vite preview"
   },

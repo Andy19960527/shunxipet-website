@@ -277,13 +277,13 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
           <!-- Product Images -->
           <div>
             <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-4">
-              <img id="main-product-image" src="${productVariants.length > 0 ? productVariants[0].image : product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${product.image}';" />
+              <img id="main-product-image" src="${(productVariants.length > 0 ? productVariants[0].image : product.image)}?v=20250330" alt="${product.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${product.image}?v=20250330';" />
             </div>
             ${productVariants.length > 1 ? `
               <div class="grid grid-cols-4 gap-3">
                 ${productVariants.map((v, i) => `
                   <button onclick="changeVariantImage('${v.image}', this)" class="aspect-square rounded-lg overflow-hidden border-2 ${i === 0 ? 'border-gray-900' : 'border-gray-200'} hover:border-gray-900 transition-colors">
-                    <img src="${v.image}" alt="${v.color_name}" class="w-full h-full object-cover" />
+                    <img src="${v.image}?v=20250330" alt="${v.color_name}" class="w-full h-full object-cover" />
                   </button>
                 `).join('')}
               </div>
@@ -311,7 +311,7 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                       class="color-btn w-12 h-12 rounded-full border-2 ${i === 0 ? 'border-gray-900 ring-2 ring-gray-900 ring-offset-2' : 'border-gray-300'} transition-all hover:scale-110 overflow-hidden"
                       title="${v.color_name}"
                     >
-                      <img src="${v.image}" alt="${v.color_name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='${v.color_code || '#ccc'}';" />
+                      <img src="${v.image}?v=20250330" alt="${v.color_name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${v.image}';" />
                     </button>
                   `).join('')}
                 </div>
