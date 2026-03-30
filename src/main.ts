@@ -308,11 +308,10 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                   ${productVariants.map((v, i) => `
                     <button 
                       onclick="selectColor('${v.color_name}', '${v.image}', this)"
-                      class="color-btn w-12 h-12 rounded-full border-2 ${i === 0 ? 'border-gray-900 ring-2 ring-gray-900 ring-offset-2' : 'border-gray-300'} transition-all hover:scale-110 overflow-hidden"
+                      class="color-btn w-10 h-10 rounded-full border-2 ${i === 0 ? 'border-gray-900 ring-2 ring-gray-900 ring-offset-2' : 'border-gray-300'} transition-all hover:scale-110"
+                      style="background-color: ${v.color_code || '#ccc'}"
                       title="${v.color_name}"
-                    >
-                      <img src="${v.image}?v=20250330" alt="${v.color_name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${v.image}';" />
-                    </button>
+                    ></button>
                   `).join('')}
                 </div>
               </div>
