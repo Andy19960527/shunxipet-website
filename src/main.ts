@@ -345,6 +345,7 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                     <tr class="bg-gray-100">
                       <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Size</th>
                       <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Dimensions</th>
+                      <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Net Weight</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -352,6 +353,7 @@ async function renderProductDetailPage(app: HTMLElement, productId: number, cate
                       <tr class="hover:bg-gray-50">
                         <td class="border border-gray-300 px-4 py-2 font-medium">${s.size_name}</td>
                         <td class="border border-gray-300 px-4 py-2">${s.dimensions}</td>
+                        <td class="border border-gray-300 px-4 py-2">${s.price_adjustment || '-'}</td>
                       </tr>
                     `).join('')}
                   </tbody>
