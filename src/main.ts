@@ -55,6 +55,9 @@ export async function initApp(): Promise<void> {
   const app = document.getElementById('app');
   if (!app) return;
 
+  // 记录页面访问
+  trackPageVisit();
+
   // 显示加载状态
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
@@ -612,3 +615,35 @@ function renderFooter(company: Company): string {
   if (smallText) smallText.classList.remove('text-gray-500');
   if (smallText) smallText.classList.add('text-gray-300');
 };
+
+// 访问统计追踪函数
+async function trackPageVisit(): Promise<void> {
+  try {
+    // 检查是否在最近30秒内已经记录过访问（避免重复刷新）
+    const lastVisit = sessionStorage.getItem('last_visit_time');
+    const now = Date.now();
+    if (lastVisit && (now - parseInt(lastVisit)) < 30000) {
+      return; // 30秒内不重复记录
+    }
+    sessionStorage.setItem('last_visit_time', now.toString());
+
+    // 获取访问信息
+    const pagePath = window.location.pathname + window.location.search;
+    const referrer = document.referrer || '';
+    const userAgent = navigator.userAgent;
+    
+    // 检测设备类型
+    const deviceType = /Mobile|Android|iPhone|iPad|iPod/i.test(userAgent) ? 'Mobile' : 'Desktop';
+
+    // 插入访问记录
+    await supabase.from('page_visits').insert({
+      page_path: pagePath,
+      referrer: referrer,
+      user_agent: userAgent,
+      device_type: deviceType,
+    });
+  } catch (error) {
+    // 静默失败，不影响页面加载
+    console.log('Visit tracking failed:', error);
+  }
+}

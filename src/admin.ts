@@ -112,6 +112,19 @@ let currentCompany: Company | null = null;
 let editingProduct: Product | null = null;
 let isEditingCompany = false;
 
+// 访问统计接口
+interface VisitStats {
+  total: number;
+  today: number;
+  week: number;
+  month: number;
+  byPage: { page_path: string; count: number }[];
+  byDevice: { device_type: string; count: number }[];
+  recentVisits: { page_path: string; created_at: string; device_type: string }[];
+}
+
+let visitStats: VisitStats | null = null;
+
 async function loadData() {
   // 检查登录状态
   if (!checkAuth()) {
@@ -144,7 +157,90 @@ async function loadData() {
     currentCompany = company;
   }
 
+  // 加载访问统计
+  await loadVisitStats();
+
   render();
+}
+
+// 加载访问统计
+async function loadVisitStats() {
+  try {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+    // 总访问量
+    const { count: total } = await supabase
+      .from('page_visits')
+      .select('*', { count: 'exact', head: true });
+
+    // 今日访问
+    const { count: today } = await supabase
+      .from('page_visits')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', todayStart);
+
+    // 本周访问
+    const { count: week } = await supabase
+      .from('page_visits')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', weekAgo);
+
+    // 本月访问
+    const { count: month } = await supabase
+      .from('page_visits')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', monthAgo);
+
+    // 按页面分组
+    const { data: pageVisits } = await supabase
+      .from('page_visits')
+      .select('page_path');
+
+    const pageCount: Record<string, number> = {};
+    (pageVisits || []).forEach(v => {
+      pageCount[v.page_path] = (pageCount[v.page_path] || 0) + 1;
+    });
+    const byPage = Object.entries(pageCount)
+      .map(([page_path, count]) => ({ page_path, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
+
+    // 按设备类型分组
+    const { data: deviceVisits } = await supabase
+      .from('page_visits')
+      .select('device_type');
+
+    const deviceCount: Record<string, number> = {};
+    (deviceVisits || []).forEach(v => {
+      deviceCount[v.device_type || 'Unknown'] = (deviceCount[v.device_type || 'Unknown'] || 0) + 1;
+    });
+    const byDevice = Object.entries(deviceCount)
+      .map(([device_type, count]) => ({ device_type, count }))
+      .sort((a, b) => b.count - a.count);
+
+    // 最近访问
+    const { data: recentVisits } = await supabase
+      .from('page_visits')
+      .select('page_path, created_at, device_type')
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    visitStats = {
+      total: total || 0,
+      today: today || 0,
+      week: week || 0,
+      month: month || 0,
+      byPage,
+      byDevice,
+      recentVisits: recentVisits || [],
+    };
+  } catch (error) {
+    console.error('Error loading visit stats:', error);
+    visitStats = null;
+  }
 }
 
 function render() {
@@ -167,6 +263,71 @@ function render() {
       </header>
 
       <main class="max-w-7xl mx-auto py-8 px-6">
+        <!-- Visit Statistics Section -->
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Visit Statistics</h2>
+          ${visitStats ? `
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-4">
+                <p class="text-blue-100 text-sm">Total Visits</p>
+                <p class="text-3xl font-bold">${visitStats.total}</p>
+              </div>
+              <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4">
+                <p class="text-green-100 text-sm">Today</p>
+                <p class="text-3xl font-bold">${visitStats.today}</p>
+              </div>
+              <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-4">
+                <p class="text-purple-100 text-sm">This Week</p>
+                <p class="text-3xl font-bold">${visitStats.week}</p>
+              </div>
+              <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-4">
+                <p class="text-orange-100 text-sm">This Month</p>
+                <p class="text-3xl font-bold">${visitStats.month}</p>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+              <!-- Top Pages -->
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-900 mb-3">Top Pages</h3>
+                <div class="space-y-2">
+                  ${visitStats.byPage.length > 0 ? visitStats.byPage.map(p => `
+                    <div class="flex justify-between items-center text-sm">
+                      <span class="text-gray-600 truncate max-w-[150px]">${p.page_path || '/'}</span>
+                      <span class="font-medium text-gray-900">${p.count}</span>
+                    </div>
+                  `).join('') : '<p class="text-gray-500 text-sm">No data yet</p>'}
+                </div>
+              </div>
+              <!-- Device Types -->
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-900 mb-3">Device Types</h3>
+                <div class="space-y-2">
+                  ${visitStats.byDevice.length > 0 ? visitStats.byDevice.map(d => `
+                    <div class="flex justify-between items-center text-sm">
+                      <span class="text-gray-600">${d.device_type}</span>
+                      <span class="font-medium text-gray-900">${d.count}</span>
+                    </div>
+                  `).join('') : '<p class="text-gray-500 text-sm">No data yet</p>'}
+                </div>
+              </div>
+              <!-- Recent Visits -->
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-900 mb-3">Recent Visits</h3>
+                <div class="space-y-2 max-h-40 overflow-y-auto">
+                  ${visitStats.recentVisits.length > 0 ? visitStats.recentVisits.map(v => `
+                    <div class="text-sm">
+                      <span class="text-gray-600 truncate max-w-[100px] inline-block">${v.page_path || '/'}</span>
+                      <span class="text-gray-400 text-xs ml-2">${new Date(v.created_at).toLocaleString()}</span>
+                    </div>
+                  `).join('') : '<p class="text-gray-500 text-sm">No visits yet</p>'}
+                </div>
+              </div>
+            </div>
+          ` : `
+            <p class="text-gray-500">Loading statistics...</p>
+          `}
+        </section>
+
         <!-- Company Info Section -->
         <section class="bg-white rounded-xl shadow-md p-6 mb-8">
           <div class="flex justify-between items-center mb-6">
