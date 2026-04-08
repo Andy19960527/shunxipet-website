@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSM发货报告下载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .file-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .file-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .file-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        .file-size {
+            color: #666;
+            font-size: 14px;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .download-btn.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            box-shadow: none;
+        }
+        .download-btn.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            text-align: left;
+            font-size: 14px;
+            color: #856404;
+        }
+        .info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 PSM发货报告</h1>
+        <p class="subtitle">英文报告中文翻译版本</p>
+
+        <div class="file-info">
+            <div class="file-icon">📋</div>
+            <div class="file-name">PSM中文发货报告</div>
+            <div class="file-size">Word文档 (RTF格式) | 15KB</div>
+        </div>
+
+        <div>
+            <button class="download-btn" onclick="downloadWord()">
+                📥 下载Word文档
+            </button>
+            <br>
+            <button class="download-btn secondary" onclick="downloadText()">
+                📄 下载文本版本
+            </button>
+        </div>
+
+        <div class="info">
+            <strong>💡 使用提示：</strong>
+            Word文档为RTF格式，可被Microsoft Word、WPS等软件打开。如果无法下载，请刷新页面重试。
+        </div>
+    </div>
+
+    <script>
+        const wordContent = `{\\rtf1\\ansi\\ansicpg936\\deff0\\deflang1033\\deflangfe2052{\\fonttbl{\\f0\\fnil\\fcharset134 SimSun;}}
+{\\colortbl;\\red0\\green0\\blue0;}
+\\viewkind4\\uc1\\pard\\cf1\\lang2052\\f0\\fs24 
+\\par \\b\\fs28 PSM发货报告 - 中文翻译\\b0\\fs24
+\\par 
+\\par \\b\\fs26 A. 基本信息\\b0\\fs24
+\\par 
+\\par 供应商名称:
+\\par Jinhua Solid Tools Co., Ltd.
+\\par 
+\\par 工厂名称:
+\\par Jinhua Solid Tools Co., Ltd.
+\\par 
+\\par 产品类别:
+\\par 
+\\par 批准样品:
+\\par × 是 否
+\\par 
+\\par 产品订单:
+\\par 859427069/859427071/859427073/859427076/859427078/859427084
+\\par 
+\\par 参考样品:
+\\par 是 × 否
+\\par 
+\\par 产品编码:
+\\par 5288556/5285695/5313179/5313182/5313595/5313596
+\\par 
+\\par 联合抽样:
+\\par × 是 否
+\\par 
+\\par 检验日期:
+\\par 十二月22,2025
+\\par 
+\\par 产品检验类型:
+\\par 最终随机检验(FRI)
+\\par 
+\\par 检验地点:
+\\par No. 11 柏林德 路, Qiubin Industrial, Jinhua, 321016, Zhejiang, China
+\\par 
+\\par Inspector 姓名:
+\\par Shengjia t
+\\par 
+\\par \\b\\fs26 B. 检验总体结果摘要\\b0\\fs24
+\\par 
+\\par × 通过 不通过, Due 至
+\\par PENDING, Due 至
+\\par 
+\\par 通过 不通过
+\\par PENDING 为 CLIENT 决策
+\\par 
+\\par N/ 备注:
+\\par 
+\\par 1. Product Conformity (产品符合性)
+\\par Style (款式) ×
+\\par 
+\\par 2. Material (材料) ×
+\\par 
+\\par 3. Color (颜色) ×
+\\par 
+\\par 4. Labeling, Printed Materials & Markings (标签、印刷品和标记)
+\\par Labeling (标签) ×
+\\par 
+\\par 5. Printed Materials (印刷品) ×
+\\par 
+\\par 6. Markings (标记) ×
+\\par 
+\\par 7. Workmanship / Appearance / 运行
+\\par (Details 在 Section E)
+\\par ×
+\\par 
+\\par 8. 现场测试
+\\par (Details 在 Section F & Attachment)
+\\par Barcode Verification (条形码验证) ×
+\\par 
+\\par 9. Measurement (测量) ×
+\\par Weight (重量)
+\\par ×
+\\par 
+\\par \\b\\fs26 C. 工厂SIP检查\\b0\\fs24
+\\par 
+\\par Checkout (检查) Remedial if 需要 (如需要补救措施)
+\\par 
+\\par Product 规格 (产品规格) v
+\\par 
+\\par Final Measurement 规格 (服装/床上用品) v
+\\par 
+\\par PSM POs (工厂POs如需要) v
+\\par 
+\\par Pre-Production 满足 Tool (产前满足工具) v
+\\par 
+\\par Product Labels (产品标签) v
+\\par 
+\\par Latest Product Testing 报告
+\\par v 报告 日期: September 07, 2023
+\\par 
+\\par Yellow Seal Samples (黄色封样) v
+\\par 
+\\par Packing List (装箱单) v
+\\par 
+\\par Carton Marking 和 Carton Label (外箱标记和外箱标签) v
+\\par 
+\\par Retail Packaging Approval (零售包装批准) v
+\\par 
+\\par PetSmart DUPRO 检验 Reports 和 CAPs v
+\\par 
+\\par \\b\\fs26 D. 生产状态 (每步骤20件)\\b0\\fs24
+\\par 
+\\par 处理 姓名 Findings (发现) Solutions (解决方案)
+\\par 
+\\par Step 1 Injection 处理 (注塑工艺) N/
+\\par 
+\\par Step 2 Assembly 处理 (组装工艺) N/
+\\par 
+\\par Step 3 Packing 处理 (包装工艺) N/
+\\par 
+\\par Step 4
+\\par 
+\\par 备注:
+\\par 
+\\par 1.
+\\par 
+\\par \\b\\fs26 E. 数量\\b0\\fs24
+\\par 
+\\par P.O. 编号. 产品编码编号. 命令 数量
+\\par Presente d 数量
+\\par Units Packed 在 Cartons (装入纸箱单位)
+\\par Qty 数量 %
+\\par Units 完成 Not Packed (完成未包装)
+\\par Qty 数量 %
+\\par Units Not 完成 Qty 数量 %
+\\par 
+\\par 5285695 1824 1824 1824 100% 0 0% 0 0%
+\\par 
+\\par 5313179 2520 2520 2520 100% 0 0% 0 0%
+\\par 
+\\par 5313182 1872 1872 1872 100% 0 0% 0 0%
+\\par 
+\\par 5313596 1536 1536 1536 100% 0 0% 0 0%
+\\par 
+\\par 5288556 2184 2184 2184 100% 0 0% 0 0%
+\\par 
+\\par 5313595 600 600 600 100% 0 0% 0 0%
+\\par 
+\\par Total (总计): 10536 10536 10536 100% 0 0% 0 0%
+\\par 
+\\par \\b\\fs26 F. 工艺质量(基本运行和外观)\\b0\\fs24
+\\par 
+\\par 检验 标准:
+\\par ANSI/ASQ Z1.4 (原称 MIL-STD-105E)
+\\par 
+\\par 检验 Level - 工艺质量/外观: II
+\\par 
+\\par AQL - 严重 Defectives (缺陷): 不允许
+\\par 
+\\par Sampling 计划 - 工艺质量/外观: Single / Normal (单次/正常)
+\\par 
+\\par AQL - 主要 Defectives: 2.5
+\\par 
+\\par AQL - 次要 Defectives: N/
+\\par 
+\\par Sample Size - 工艺质量/外观:
+\\par 严重: 315
+\\par 主要: 315
+\\par 次要: 315
+\\par 
+\\par Defective 描述 (缺陷描述)
+\\par 严重 主要 次要
+\\par 
+\\par 1. SKU:5313179 Surface rubber coating scratch (表面橡胶涂层划伤)
+\\par 2 2
+\\par 
+\\par Total 找到:
+\\par 接受: 结果:
+\\par 0 0 2 0 0 2 0 14 N/
+\\par 通过
+\\par 
+\\par \\b\\fs26 G. 现场测试\\b0\\fs24
+\\par 
+\\par 1. 描述:
+\\par Product dimension 和 weight measurement (产品尺寸和重量测量)
+\\par 
+\\par 通过
+\\par 
+\\par Sample Size (样本量): 3pcs per 项目
+\\par 
+\\par 测试 执行 与 factory equipment? (使用工厂设备执行测试?)
+\\par 是 否
+\\par 
+\\par Factory equipment current calibration label available?
+\\par (工厂设备当前校准标签是否可用?)
+\\par 是 否
+\\par 
+\\par N/
+\\par 
+\\par 2. 描述:
+\\par 运行 测试
+\\par 
+\\par 通过
+\\par 
+\\par Sample Size (样本量): 3pcs per 项目
+\\par 
+\\par 测试 执行 与 factory equipment?
+\\par 是 否
+\\par 
+\\par Factory equipment current calibration label available?
+\\par 是 否
+\\par 
+\\par N/
+\\par 
+\\par 3. 描述:
+\\par Tension 测试 (拉力测试)
+\\par 
+\\par 通过
+\\par 
+\\par Sample Size (样本量): 1 per sku
+\\par 
+\\par 测试 执行 与 factory equipment?
+\\par 是 否
+\\par 
+\\par Factory equipment current calibration label available?
+\\par 是 否
+\\par 
+\\par N/
+\\par 
+\\par Vendor/Factory QC Signature (供应商/工厂质检签名):
+\\par Sheng.Jia
+\\par 
+\\par Vendor/Factory QA Mgr Signature (供应商/工厂质量经理签名):
+\\par Xia.Libin
+\\par 
+\\par \\b\\fs26 H. 照片\\b0\\fs24
+\\par 
+\\par [包含64张产品检验照片]
+\\par Photo 1-2) 堆放货物
+\\par Photo 3-12) SKU:5313595 产品照片
+\\par Photo 13-22) SKU:5313182 产品照片
+\\par Photo 23-32) SKU:5285695 产品照片
+\\par Photo 33-42) SKU:5313179 产品照片
+\\par Photo 43-52) SKU:5288556 产品照片
+\\par Photo 53-62) SKU:5313596 产品照片
+\\par Photo 63-64) 报告和缺陷照片
+\\par 
+\\par \\b\\fs26 翻译说明\\b0\\fs24
+\\par 
+\\par 本文档为自动翻译版本，翻译了基本的商业和质量检验术语。
+\\par 保留了产品编码、数量、技术数据等原始信息以确保准确性。
+\\par 
+\\par 译者: 自动翻译系统
+\\par 日期: 2026-04-08
+\\par}`;
+
+        const textContent = `PSM发货报告 - 中文翻译
+================================
+
+A. 基本信息
+
+供应商名称:
+Jinhua Solid Tools Co., Ltd.
+
+工厂名称:
+Jinhua Solid Tools Co., Ltd.
+
+产品类别:
+
+批准样品:
+× 是 否
+
+产品订单:
+859427069/859427071/859427073/859427076/859427078/859427084
+
+参考样品:
+是 × 否
+
+产品编码:
+5288556/5285695/5313179/5313182/5313595/5313596
+
+联合抽样:
+× 是 否
+
+检验日期:
+十二月22,2025
+
+产品检验类型:
+最终随机检验(FRI)
+
+检验地点:
+No. 11 柏林德 路, Qiubin Industrial, Jinhua, 321016, Zhejiang, China
+
+Inspector 姓名:
+Shengjia t
+
+B. 检验总体结果摘要
+
+× 通过 不通过, Due 至
+PENDING, Due 至
+
+通过 不通过
+PENDING 为 CLIENT 决策
+
+N/ 备注:
+
+1. Product Conformity (产品符合性)
+Style (款式) ×
+
+2. Material (材料) ×
+
+3. Color (颜色) ×
+
+4. Labeling, Printed Materials & Markings (标签、印刷品和标记)
+Labeling (标签) ×
+
+5. Printed Materials (印刷品) ×
+
+6. Markings (标记) ×
+
+7. Workmanship / Appearance / 运行
+(Details 在 Section E)
+×
+
+8. 现场测试
+(Details 在 Section F & Attachment)
+Barcode Verification (条形码验证) ×
+
+9. Measurement (测量) ×
+Weight (重量)
+×
+
+C. 工厂SIP检查
+
+Checkout (检查) Remedial if 需要 (如需要补救措施)
+
+Product 规格 (产品规格) v
+
+Final Measurement 规格 (服装/床上用品) v
+
+PSM POs (工厂POs如需要) v
+
+Pre-Production 满足 Tool (产前满足工具) v
+
+Product Labels (产品标签) v
+
+Latest Product Testing 报告
+v 报告 日期: September 07, 2023
+
+Yellow Seal Samples (黄色封样) v
+
+Packing List (装箱单) v
+
+Carton Marking 和 Carton Label (外箱标记和外箱标签) v
+
+Retail Packaging Approval (零售包装批准) v
+
+PetSmart DUPRO 检验 Reports 和 CAPs v
+
+D. 生产状态 (每步骤20件)
+
+处理 姓名 Findings (发现) Solutions (解决方案)
+
+Step 1 Injection 处理 (注塑工艺) N/
+
+Step 2 Assembly 处理 (组装工艺) N/
+
+Step 3 Packing 处理 (包装工艺) N/
+
+Step 4
+
+备注:
+1.
+
+E. 数量
+
+P.O. 编号. 产品编码编号. 命令 数量
+Presente d 数量
+Units Packed 在 Cartons (装入纸箱单位)
+Qty 数量 %
+Units 完成 Not Packed (完成未包装)
+Qty 数量 %
+Units Not 完成 Qty 数量 %
+
+5285695 1824 1824 1824 100% 0 0% 0 0%
+
+5313179 2520 2520 2520 100% 0 0% 0 0%
+
+5313182 1872 1872 1872 100% 0 0% 0 0%
+
+5313596 1536 1536 1536 100% 0 0% 0 0%
+
+5288556 2184 2184 2184 100% 0 0% 0 0%
+
+5313595 600 600 600 100% 0 0% 0 0%
+
+Total (总计): 10536 10536 10536 100% 0 0% 0 0%
+
+F. 工艺质量(基本运行和外观)
+
+检验 标准:
+ANSI/ASQ Z1.4 (原称 MIL-STD-105E)
+
+检验 Level - 工艺质量/外观: II
+
+AQL - 严重 Defectives (缺陷): 不允许
+
+Sampling 计划 - 工艺质量/外观: Single / Normal (单次/正常)
+
+AQL - 主要 Defectives: 2.5
+
+AQL - 次要 Defectives: N/
+
+Sample Size - 工艺质量/外观:
+严重: 315
+主要: 315
+次要: 315
+
+Defective 描述 (缺陷描述)
+严重 主要 次要
+
+1. SKU:5313179 Surface rubber coating scratch (表面橡胶涂层划伤)
+2 2
+
+Total 找到:
+接受: 结果:
+0 0 2 0 0 2 0 14 N/
+通过
+
+G. 现场测试
+
+1. 描述:
+Product dimension 和 weight measurement (产品尺寸和重量测量)
+
+通过
+
+Sample Size (样本量): 3pcs per 项目
+
+测试 执行 与 factory equipment? (使用工厂设备执行测试?)
+是 否
+
+Factory equipment current calibration label available?
+(工厂设备当前校准标签是否可用?)
+是 否
+
+N/
+
+2. 描述:
+运行 测试
+
+通过
+
+Sample Size (样本量): 3pcs per 项目
+
+测试 执行 与 factory equipment?
+是 否
+
+Factory equipment current calibration label available?
+是 否
+
+N/
+
+3. 描述:
+Tension 测试 (拉力测试)
+
+通过
+
+Sample Size (样本量): 1 per sku
+
+测试 执行 与 factory equipment?
+是 否
+
+Factory equipment current calibration label available?
+是 否
+
+N/
+
+Vendor/Factory QC Signature (供应商/工厂质检签名):
+Sheng.Jia
+
+Vendor/Factory QA Mgr Signature (供应商/工厂质量经理签名):
+Xia.Libin
+
+H. 照片
+
+[包含64张产品检验照片]
+Photo 1-2) 堆放货物
+Photo 3-12) SKU:5313595 产品照片
+Photo 13-22) SKU:5313182 产品照片
+Photo 23-32) SKU:5285695 产品照片
+Photo 33-42) SKU:5313179 产品照片
+Photo 43-52) SKU:5288556 产品照片
+Photo 53-62) SKU:5313596 产品照片
+Photo 63-64) 报告和缺陷照片
+
+翻译说明
+================================
+
+本文档为自动翻译版本，翻译了基本的商业和质量检验术语。
+保留了产品编码、数量、技术数据等原始信息以确保准确性。
+
+译者: 自动翻译系统
+日期: 2026-04-08`;
+
+        function downloadWord() {
+            const blob = new Blob([wordContent], { type: 'application/rtf' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PSM中文发货报告.rtf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function downloadText() {
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PSM中文发货报告.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
