@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PSM发货报告下载</title>
     <style>
@@ -11,7 +12,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -45,7 +46,7 @@
             margin-bottom: 30px;
         }
         .download-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
             border: none;
             padding: 18px 30px;
@@ -54,19 +55,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
             text-decoration: none;
             display: block;
         }
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-        .download-btn.primary {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }
-        .download-btn.primary:hover {
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
         }
         .download-btn.secondary {
@@ -105,7 +99,7 @@
             margin-bottom: 8px;
             font-size: 15px;
         }
-        .warning {
+        .note {
             margin-top: 15px;
             padding: 15px;
             background: #fff3cd;
@@ -115,56 +109,42 @@
             font-size: 14px;
             color: #856404;
         }
-        .warning strong {
+        .note strong {
             display: block;
             margin-bottom: 5px;
-        }
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📋 PSM发货报告</h1>
-        <p class="subtitle">英文报告中文翻译版本</p>
+        <h1>PSM 中文报告</h1>
+        <p class="subtitle">英文发货报告中文翻译版本</p>
 
         <div class="download-options">
-            <a href="psm-report-chinese.html" class="download-btn primary" target="_blank">
+            <a href="psm-report-simple.html" class="download-btn" target="_blank">
                 <span class="btn-icon">🌐</span>
-                <span>在浏览器中查看完整报告</span>
-                <span class="btn-text">推荐使用 - 支持打印和复制</span>
+                <span>查看完整报告 (HTML格式)</span>
+                <span class="btn-text">推荐使用 - 在浏览器中打开查看</span>
             </a>
 
-            <button class="download-btn" onclick="alert('请在浏览器中打开的报告页面使用打印功能，然后选择"另存为PDF"')">
-                <span class="btn-icon">📄</span>
-                <span>下载为PDF格式</span>
-                <span class="btn-text">在报告页面点击打印，选择"另存为PDF"</span>
-            </button>
-
-            <button class="download-btn" onclick="window.location.href='psm-report-chinese.txt';">
+            <a href="psm-report-chinese.txt" class="download-btn secondary">
                 <span class="btn-icon">📝</span>
                 <span>下载文本版本</span>
                 <span class="btn-text">纯文本格式，任何编辑器可打开</span>
-            </button>
+            </a>
         </div>
 
         <div class="info">
-            <strong>💡 推荐使用方式：</strong>
-            1. 点击"在浏览器中查看完整报告"<br>
-            2. 报告将在新窗口中打开，格式清晰，无乱码<br>
+            <strong>💡 推荐使用方式:</strong>
+            1. 点击"查看完整报告"<br>
+            2. 报告将在新窗口中打开<br>
             3. 可以直接打印，或复制内容到Word<br>
             4. 支持保存为PDF格式
         </div>
 
-        <div class="warning">
-            <strong>⚠️ 注意：</strong>
-            之前的Word文档版本可能存在编码兼容性问题。HTML版本已优化，可在任何设备上正常显示中文。
+        <div class="note">
+            <strong>⚠️ 注意:</strong>
+            如果打开的HTML页面中文显示为乱码，请下载文本版本查看。文本版本不会有编码问题。
         </div>
     </div>
 </body>
